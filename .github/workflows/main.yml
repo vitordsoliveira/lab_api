@@ -1,0 +1,88 @@
+name: Pipeline CI/CD - Desafio Final
+
+# Aciona o workflow em cada push para a branch 'main' (Fonte 28, 55)
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  # --- JOB 1: TEST (Requisito: Testes Unitários) ---
+  test:
+    name: 1. Testar Aplicação (Fonte 73, 79)
+    # Usa a VM mais recente do Ubuntu (Fonte 33, 44)
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Clona o repositório (Fonte 35, 48)
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # Step 2: Configura o ambiente Python
+      - name: Configurar Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      # Step 3: Instala as dependências (Fonte 38)
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      # Step 4: Executa os 3 testes unitários (Fonte 39, 80)
+      - name: Rodar testes unitários
+        run: python test_app.py
+
+  # --- JOB 2: BUILD (Requisito: Build de Artefatos) ---
+  build:
+    name: 2. Build e Push da Imagem Docker (Fonte 72)
+    # Este job só roda se o 'test' passar
+    needs: test
+    runs-on: ubuntu-latest
+    
+    # Permissões necessárias para fazer push no registry do GitHub
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # Step 1: Login no GitHub Container Registry (GHCR)
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 2: Build e Push da imagem
+      - name: Build e Push (GHCR)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          # Define a tag da imagem. Ex: ghcr.io/seu-usuario/sua-api:latest
+          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository.name }}:latest
+
+  # --- JOB 3: DEPLOY (Requisito: Provedor de Nuvem) ---
+  deploy:
+    name: 3. Deploy no Provedor de Nuvem (Fonte 74, 81)
+    # Este job só roda se o 'build' passar
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy (Espaço Reservado)
+        run: |
+          echo "Iniciando deploy para o provedor de nuvem..."
+          echo "A imagem 'ghcr.io/${{ github.repository_owner }}/${{ github.repository.name }}:latest' está pronta."
+          
+      - name: (AÇÃO DO USUÁRIO) Adicionar steps de deploy
+        run: |
+          echo "Aqui você deve adicionar os steps para o seu provedor (Fonte 82)."
+          echo "Exemplos:"
+          echo "1. AWS: Usar 'aws-actions/amazon-ecs-deploy-task-definition' para o ECS."
+          echo "2. GCP: Usar 'google-github-actions/deploy-cloud-run'."
+          echo "3. Azure: Usar 'azure/webapps-deploy'."
+          echo "Lembre-se de configurar os 'Secrets' (ex: AWS_ACCESS_KEY_ID, GCP_SA_KEY) nas Configurações do seu repositório."
