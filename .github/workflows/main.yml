@@ -50,14 +50,13 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository.name }}:latest
+          tags: ghcr.io/${{ github.repository_owner }}/${{ lab_api }}:latest
 
   deploy:
     name: 3. Deploy no Render
     needs: build
     runs-on: ubuntu-latest
     
-    # A chave 'steps:' estava faltando aqui
     steps:
       - name: Acionar Deploy Hook no Render
         run: |
