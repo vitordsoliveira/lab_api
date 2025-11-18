@@ -56,6 +56,12 @@ jobs:
     name: 3. Deploy no Render
     needs: build
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Aguardar propagação da imagem no GHCR
+        run: |
+          echo "Aguardando 30 segundos para a imagem ser propagada no registro"
+          sleep 30
     
     steps:
       - name: Acionar Deploy Hook no Render
