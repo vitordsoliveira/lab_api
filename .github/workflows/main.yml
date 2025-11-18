@@ -56,18 +56,4 @@ jobs:
     name: 3. Deploy no Provedor de Nuvem
     needs: build
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy
-        run: |
-          echo "Iniciando deploy para o provedor de nuvem..."
-          echo "A imagem 'ghcr.io/${{ github.repository_owner }}/${{ github.repository.name }}:latest' está pronta."
           
-      - name: (AÇÃO DO USUÁRIO) Adicionar steps de deploy
-        run: |
-          echo "Aqui você deve adicionar os steps para o seu provedor (Fonte 82)."
-          echo "Exemplos:"
-          echo "1. AWS: Usar 'aws-actions/amazon-ecs-deploy-task-definition' para o ECS."
-          echo "2. GCP: Usar 'google-github-actions/deploy-cloud-run'."
-          echo "3. Azure: Usar 'azure/webapps-deploy'."
-          echo "Lembre-se de configurar os 'Secrets' (ex: AWS_ACCESS_KEY_ID, GCP_SA_KEY) nas Configurações do seu repositório."
