@@ -9,6 +9,8 @@ class APITestCase(unittest.TestCase):
     @classmethod 
     def setUpClass(cls): 
         cls.client = app.test_client()
+
+        #testando commit
     
     def test_home(self):
         response = self.client.get('/')
