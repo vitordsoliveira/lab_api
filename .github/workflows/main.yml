@@ -50,7 +50,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ lab_api }}:latest
+          tags: ghcr.io/${{ github.repository }}:latest
 
   deploy:
     name: 3. Deploy no Render
