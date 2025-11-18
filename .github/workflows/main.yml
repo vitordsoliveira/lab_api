@@ -56,4 +56,10 @@ jobs:
     name: 3. Deploy no Provedor de Nuvem
     needs: build
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy
+        run: |
+          echo "Iniciando deploy para o provedor de nuvem..."
+          echo "A imagem 'ghcr.io/${{ github.repository_owner }}/${{ github.repository.name }}:latest' está pronta."
           
