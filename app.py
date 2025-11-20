@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from flask_swagger_ui import get_swaggerui_blueprint
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
-
+#testando o deploy
 app = Flask(__name__)
 
 app.config['JWT_SECRET_KEY'] = 'your_secret_key'
