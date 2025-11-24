@@ -1,7 +1,6 @@
 from flask import Flask, jsonify
 from flask_swagger_ui import get_swaggerui_blueprint
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
-#testando o deploy
 app = Flask(__name__)
 
 app.config['JWT_SECRET_KEY'] = 'your_secret_key'
@@ -14,7 +13,7 @@ app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 @app.route('/')
 def home():
-    return jsonify(message="API is running com deploy automatico")
+    return jsonify(message="API is running")
 
 @app.route('/items', methods=['GET'])
 def get_items():
