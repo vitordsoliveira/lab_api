@@ -56,13 +56,15 @@ jobs:
     name: 3. Deploy no Render
     needs: build
     runs-on: ubuntu-latest
-    uses: render-action/deploy@v1
-    width: 
-      service-id: srv-d4fppsv5r7bs73bre6kg
-      api-key: ${{ secrets.API_KEYS_LAB }}
-      clear-cache: false
-    
-    steps:    
+
+    steps:
+      - name: Usar a action oficial do Render
+        uses: render-action/deploy@v1
+        with:
+          service-id: srv-d4fppsv5r7bs73bre6kg
+          api-key: ${{ secrets.API_KEYS_LAB }}
+          clear-cache: false
+
       - name: Acionar Deploy Hook no Render
         run: |
           curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
