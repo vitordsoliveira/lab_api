@@ -58,14 +58,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Usar a action oficial do Render
-        uses: render-action/deploy@v1
+      - name: Deploy usando action do Render
+        uses: johnbeynon/render-deploy-action@v1
         with:
-          service-id: srv-d4fppsv5r7bs73bre6kg
-          api-key: ${{ secrets.API_KEYS_LAB }}
-          clear-cache: false
+          serviceId: srv-d4fppsv5r7bs73bre6kg
+          apiKey: ${{ secrets.API_KEYS_LAB }}
+          clearCache: false
 
       - name: Acionar Deploy Hook no Render
         run: |
           curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
           echo "Sinal de deploy enviado ao Render."
+
