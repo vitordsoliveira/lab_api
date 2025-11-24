@@ -14,7 +14,7 @@ app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 @app.route('/')
 def home():
-    return jsonify(message="API is running")
+    return jsonify(message="API is running com deploy automatico")
 
 @app.route('/items', methods=['GET'])
 def get_items():
