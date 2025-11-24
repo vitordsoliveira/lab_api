@@ -69,4 +69,3 @@ jobs:
         run: |
           curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
           echo "Sinal de deploy enviado ao Render."
-
